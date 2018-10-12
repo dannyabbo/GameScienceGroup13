@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class GunController : MonoBehaviour {
+
+
 
     public bool isFiring;
 
@@ -21,7 +24,8 @@ public class GunController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(isFiring)
+    
+		if(Input.GetMouseButton(0))
         {
             shotCounter -= Time.deltaTime;
             if(shotCounter <= 0)

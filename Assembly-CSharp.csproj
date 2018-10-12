@@ -61,8 +61,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\AIGunController.cs" />
     <Compile Include="Assets\Scripts\BulletController.cs" />
     <Compile Include="Assets\Scripts\Fighter1Controller.cs" />
+    <Compile Include="Assets\Scripts\FighterController.cs" />
     <Compile Include="Assets\Scripts\GunController.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>/Users/dannyabbo/StrategyAI/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
