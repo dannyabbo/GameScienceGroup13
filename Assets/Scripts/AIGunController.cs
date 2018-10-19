@@ -6,8 +6,6 @@ using UnityEngine;
 public class AIGunController : MonoBehaviour {
 
 
-    public enum State { Initial, Watch, Shoot }
-    State _state = State.Initial;
 
     public bool isFiring;
 
@@ -21,32 +19,8 @@ public class AIGunController : MonoBehaviour {
 
 
 
-  
-
-
-    public State CurrentState
-    {
-        get { return _state; }
-    }
-
-    public void SetState(State newState)
-    {
-        _state = newState;
-        //PrintState();
-    }
-
-    void Watch()
-    {
-       
-
-    }
-
     void Shoot(){
-
-       
-
-      
-              
+    
         if (isFiring)
         {
             shotCounter -= Time.deltaTime;
@@ -64,29 +38,18 @@ public class AIGunController : MonoBehaviour {
 
     }
 
-   
-    void Initial(){
-        SetState(State.Shoot);
-    }
+  
 
-
+ 
 
     // Use this for initialization
-    IEnumerator Start () {
-        while (true)
-        {
-            switch (_state)
-            {
-                case State.Initial:
-                    break;
-                case State.Watch:
-                    break;
-                case State.Shoot:
-                    Shoot();
-                    break;
-            }
-            yield return null;
-        }
+    public void Start () {
+
+    }
+
+    public void Update()
+    {
+        Shoot();
     }
     /*
     // Update is called once per frame

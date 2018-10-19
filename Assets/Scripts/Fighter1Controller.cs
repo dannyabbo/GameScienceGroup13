@@ -14,8 +14,11 @@ public class Fighter1Controller : MonoBehaviour {
 
     public GunController theGun;
 
-	// Use this for initialization
-	void Start () {
+    public int HP = 25;
+    public bool isDead = false;
+
+    // Use this for initialization
+    void Start () {
 		myRigidbody = GetComponent<Rigidbody>();
         mainCamera = FindObjectOfType<Camera>();
 	}
@@ -38,14 +41,12 @@ public class Fighter1Controller : MonoBehaviour {
         }
 
 
-        if(Input.GetMouseButtonDown(0)){
-            theGun.isFiring = true;
-        }
-        if(Input.GetMouseButtonUp(0))
+        if (HP <= 0)
         {
-            theGun.isFiring = false;
+            isDead = true;
+            Destroy(this.gameObject);
         }
-      
+
     }
     
     void FixedUpdate () {

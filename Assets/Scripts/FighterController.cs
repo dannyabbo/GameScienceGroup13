@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FighterController : MonoBehaviour {
-    
+
+
+
     public float moveSpeed;
     private Rigidbody myRigidbody;
 
@@ -11,21 +13,46 @@ public class FighterController : MonoBehaviour {
     private Vector3 moveVelocity;
     public float rotationSpeed;
 
+    float rotate;
+
+
     public float sightDistance;
 
     private Camera mainCamera;
 
     public AIGunController theGun;
 
+
+    public bool playerSeen;
+    public bool enemySeen;
+    public bool playerHit;
+    public bool isDead = false;
+
+
+    public float HP;
+    public float damageDone;
+
+    private int stateCase;
+
+    public void setCase(int c){
+        stateCase = c;
+    }
+
+
+
 	// Use this for initialization
 	void Start () {
 		myRigidbody = GetComponent<Rigidbody>();
         mainCamera = FindObjectOfType<Camera>();
-	}
+        HP = 25;
+        damageDone = 0;
+        rotate = rotationSpeed;
+    }
     //d
     // Update is called once per frame
     void Update()
     {
+
 
         RaycastHit hit;
         Ray sight = new Ray(theGun.firePoint.position, theGun.firePoint.forward);
@@ -40,15 +67,41 @@ public class FighterController : MonoBehaviour {
         //float rayLength;
 
 
-        if (Physics.Raycast(sight, out hit, sightDistance))
-        {
+        playerSeen = (Physics.Raycast(sight, out hit, sightDistance) && (hit.collider.gameObject.tag == "Player"));
+        enemySeen = (Physics.Raycast(sight, out hit, sightDistance) && (hit.collider.gameObject.tag == "Enemy"));
+        //playerHit = 
 
-            if (hit.collider.gameObject.tag == "Player")
-            {
+        switch(stateCase){
+            case 0:
+                //shoot
                 rotationSpeed = 0;
-                theGun.SetState(AIGunController.State.Shoot);
-            }
+                theGun.isFiring = false;
+                break;
+            case 1:
+                //rotate left
+                theGun.isFiring = false;
+                rotationSpeed = -rotate;
+                break;
+            case 2:
+                //rotate right
+                theGun.isFiring = false;
+                rotationSpeed = rotate;
+                break;
+            case 3:
+                rotationSpeed = 0;
+                theGun.isFiring = true;
+                break;
+
         }
+
+
+        if(HP <= 0){
+            isDead = true;
+            //Destroy(this.gameObject);
+        }
+            
+               
+      
 
     }
 }
